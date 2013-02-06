@@ -77,7 +77,7 @@ parse_array() {
                 esac
                 if [ $zero_layer_index -eq 0 ] && [ $second_layer_index -eq 0 ]
                 then
-                    result=$(printf '%s' "$line" | sed -e 's/^"\(.*\)"$/\1/')
+                    result=$(sed -e 's/^"\(.*\)"$/\1/' <<< "$line")
                     printf '%b' "$result"
                 fi
                 ;;
