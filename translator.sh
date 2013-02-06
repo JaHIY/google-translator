@@ -155,7 +155,7 @@ main() {
                 if [ $# -gt 0 ]
                 then
                     get_cookie
-                    get_javascript "$from_code" "$to_code" "$@" | grep -o '\[\|\]\|"[^"]*"\|[[:digit:]]' | parse_array
+                    get_javascript "$from_code" "$to_code" "$@" | grep -o '\[\|\]\|"\([^"]\|\\"\)*"\|[[:digit:]]' | parse_array
                     break
                 else
                     print_error
