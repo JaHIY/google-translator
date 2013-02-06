@@ -95,11 +95,11 @@ print_error() {
 print_usage() {
     printf '%s\n' \
             "Usage: ${0} [OPTION...] [FILE...]" \
-            'Convert encoding of given files from one encoding to another by Google translate.' \
+            'Translate language of given files from one language to another by Google translate.' \
             '' \
             ' Input/Output format specification:' \
-            '  -f, --from-code=NAME       encoding of original text' \
-            '  -t, --to-code=NAME         encoding for output' \
+            '  -f, --from-code=NAME       language of original text' \
+            '  -t, --to-code=NAME         language for output' \
             '' \
             ' Information:' \
             '  -l, --list                 list all known language sets' \
@@ -110,7 +110,7 @@ print_usage() {
 
 print_list() {
     printf '%s\n' \
-            'The following encodings are both supported in input and output:' \
+            'The following languages are both supported in input and output:' \
             ' af, sq, ar, hy, az, eu, be, bn, bg, ca,' \
             ' zh-CN, hr, cs, da, nl, en, eo, et, tl, fi, fr,' \
             ' gl, ka, de, el, gu, ht, iw, hi, hu, is, id,' \
@@ -118,10 +118,10 @@ print_list() {
             ' mt, no, fa, pl, pt, ro, ru, sr, sk, sl, es,' \
             ' sw, sv, ta, te, th, tr, uk, ur, vi, cy, yi' \
             '' \
-            'The following encodings are only supported in input:' \
+            'The following languages are only supported in input:' \
             ' auto' \
             '' \
-            'The following encodings are only supported in output:' \
+            'The following languages are only supported in output:' \
             ' zh-TW' \
             '' \
             'Default from-code value is auto' \
