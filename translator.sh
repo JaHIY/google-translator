@@ -78,7 +78,7 @@ parse_array() {
                 if [ $zero_layer_index -eq 0 ] && [ $second_layer_index -eq 0 ]
                 then
                     result=$(sed -e 's/^"\(.*\)"$/\1/' <<< "$line")
-                    printf '%b' "$result"
+                    printf '%b' "$result" | sed -e 's/\\"/"/g'
                 fi
                 ;;
         esac
@@ -152,15 +152,9 @@ main() {
                 ;;
             '--')
                 shift
-                if [ $# -gt 0 ]
-                then
-                    get_cookie
-                    get_javascript "$from_code" "$to_code" "$@" | grep -o '\[\|\]\|"\([^"]\|\\"\)*"\|[[:digit:]]' | parse_array
-                    break
-                else
-                    print_error
-                    return 2
-                fi
+                get_cookie
+                get_javascript "$from_code" "$to_code" "$@" | grep -o '\[\|\]\|"\([^"]\|\\"\)*"\|[[:digit:]]' | parse_array
+                break
                 ;;
             *)
                 print_error
