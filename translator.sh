@@ -3,19 +3,14 @@
 ARGV=$(getopt -o 'f:t:hl' -l 'from-code:,to-code:,help,list' -n "${0}" -- "$@")
 eval set -- "$ARGV"
 
-COOKIE_FILE='cookie.txt'
 USER_AGENT='Mozilla/6.0 (Windows NT 6.2; WOW64; rv:16.0.1) Gecko/20121011 Firefox/16.0.1'
 BASE_URL='http://translate.google.cn'
-
-get_cookie() {
-    curl -s -c "$COOKIE_FILE" -A "$USER_AGENT" "$BASE_URL" > /dev/null
-}
 
 get_javascript() {
     local from_code="$1"
     local to_code="$2"
     shift 2
-    cat "$@" | curl -s -b "$COOKIE_FILE" -A "$USER_AGENT" -e "$BASE_URL" \
+    cat "$@" | curl -s -A "$USER_AGENT" -e "$BASE_URL" \
         -d "client=t&sl=${from_code}&tl=${to_code}&ie=UTF-8&oe=UTF-8" \
         --data-urlencode "text@-" "${BASE_URL}/translate_a/t"
 }
@@ -152,7 +147,6 @@ main() {
                 ;;
             '--')
                 shift
-                get_cookie
                 get_javascript "$from_code" "$to_code" "$@" | grep -o '\[\|\]\|"\(\\"\|[^"]\)*"\|[[:digit:]]' | parse_array
                 break
                 ;;
